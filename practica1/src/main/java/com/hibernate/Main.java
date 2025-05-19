@@ -16,7 +16,8 @@ public class Main {
         System.out.println("Insertar asignatura (4)");
         System.out.println("Actualizar asignatura (5)");
         System.out.println("Borrar asignatura (6)");
-        System.out.println("Salir (7)");
+        System.out.println("Asignar una asignatura a un alumno (7)");
+        System.out.println("Salir (8)");
         System.out.println();
     }
 
@@ -181,12 +182,15 @@ public class Main {
                     Main.mostrarAsignaturas();
                     break;
                 case 7:
+                    
+                    break;
+                case 8:
                     System.out.println("Has salido");
                     break;
                 default:
                     System.out.print("OPCIÓN NO VÁLIDA. Por favor, selecciona una opción del menú: ");
                     opcion=entrada.nextInt();
             }
-        } while (opcion!=7);
+        } while (opcion!=8);
     }
 }

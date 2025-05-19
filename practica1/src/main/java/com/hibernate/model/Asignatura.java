@@ -12,7 +12,7 @@ import lombok.*;
 public class Asignatura {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name="idAsignatura")
     int id;
 
     @Column(name="nombre")

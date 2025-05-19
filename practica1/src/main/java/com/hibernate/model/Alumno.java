@@ -12,7 +12,7 @@ import lombok.*;
 public class Alumno {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name="idAlumno")
     int id;
 
     @Column(name="nombre")
@@ -28,7 +28,7 @@ public class Alumno {
     int telefono;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    @JoinTable(name="alumno_asignatura", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @JoinTable(name="alumno_asignatura", joinColumns = @JoinColumn(name = "idAlumno"), inverseJoinColumns = @JoinColumn(name = "idAsignatura"))
     private Set<Asignatura> asignaturas = new HashSet();
 
     public void añadirAsignatura(Asignatura as) {

@@ -182,7 +182,22 @@ public class Main {
                     Main.mostrarAsignaturas();
                     break;
                 case 7:
-                    
+                    Main.mostrarAsignaturas();
+
+                    System.out.print("¿Qué asignatura quieres asignar? Introduce su id: ");
+                    idAsignatura=entrada.nextInt();
+
+                    Asignatura asignaturaSeleccionada=asignaturaDAO.selectAsignaturaById(idAsignatura);
+
+                    Main.mostrarAlumnos();
+
+                    System.out.print("¿A qué alumno quieres asignarle esa asignatura? Introduce su id: ");
+                    idAlumno=entrada.nextInt();
+
+                    Alumno alumnoSeleccionado=alumnoDAO.selectAlumnoById(idAlumno);
+
+                    alumnoSeleccionado.añadirAsignatura(asignaturaSeleccionada);
+
                     break;
                 case 8:
                     System.out.println("Has salido");

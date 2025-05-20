@@ -5,7 +5,7 @@ import java.util.Set;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter @Setter @ToString
+@Getter @Setter
 
 @Entity
 @Table(name="alumno")

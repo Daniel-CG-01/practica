@@ -13,17 +13,18 @@ public class Main {
         System.out.println("Insertar alumno (1)");
         System.out.println("Actualizar alumno (2)");
         System.out.println("Borrar alumno (3)");
-        System.out.println("Insertar asignatura (4)");
-        System.out.println("Actualizar asignatura (5)");
-        System.out.println("Borrar asignatura (6)");
-        System.out.println("Asignar una asignatura a un alumno (7)");
-        System.out.println("Salir (8)");
+        System.out.println("Mostrar alumnos (4)");
+        System.out.println("Insertar asignatura (5)");
+        System.out.println("Actualizar asignatura (6)");
+        System.out.println("Borrar asignatura (7)");
+        System.out.println("Mostrar asignaturas (8)");
+        System.out.println("Asignar una asignatura a un alumno (9)");
+        System.out.println("Quitar una asignatura a un alumno (10)");
+        System.out.println("Salir (11)");
         System.out.println();
     }
 
-    static void mostrarAlumnos() {
-        AlumnoDAO alumnoDAO = new AlumnoDAO();
-
+    static void mostrarAlumnos(AlumnoDAO alumnoDAO) {
         List<Alumno> alumnos=alumnoDAO.selectAllAlumnos();
 
         for (Alumno al : alumnos) {
@@ -37,9 +38,7 @@ public class Main {
         System.out.println();
     }
 
-    static void mostrarAsignaturas() {
-        AsignaturaDAO asignaturaDAO = new AsignaturaDAO();
-
+    static void mostrarAsignaturas(AsignaturaDAO asignaturaDAO) {
         List<Asignatura> asignaturas=asignaturaDAO.selectAllAsignaturas();
 
         for (Asignatura as : asignaturas) {
@@ -74,14 +73,16 @@ public class Main {
             System.out.print("Selecciona una opción: ");
             opcion=entrada.nextInt();
 
+            entrada.nextLine();
+
             switch (opcion) {
                 case 1:
                     System.out.print("Introduce un nombre: ");
-                    nombreAlumno=entrada.next();
+                    nombreAlumno=entrada.nextLine();
                     System.out.print("Introduce un correo: ");
-                    correo=entrada.next();
+                    correo=entrada.nextLine();
                     System.out.print("Introduce una contraseña: ");
-                    contraseña=entrada.next();
+                    contraseña=entrada.nextLine();
                     System.out.print("Introduce un teléfono: ");
                     telefono=entrada.nextInt();
 
@@ -89,107 +90,113 @@ public class Main {
                     alumnoDAO.insertAlumno(alumno);
 
                     System.out.println("Alumno insertado");
-                    Main.mostrarAlumnos();
                     break;
                 case 2:
-                    System.out.print("¿Qué quieres actualizar? (nombre = 1 | correo = 2 | contraseña = 3 | teléfono = 4): ");
+                    Main.mostrarAlumnos(alumnoDAO);
+
+                    System.out.print("¿Qué alumno quieres actualizar? Introduce su id: ");
+                    int idAlumno=entrada.nextInt();
+
+                    Alumno alumnoActualizado=alumnoDAO.selectAlumnoById(idAlumno);
+
+                    System.out.print("¿Qué quieres actualizar? (nombre = 1 | correo = 2 | contraseña = 3 | teléfono = 4) "+
+                                     "Selecciona una opción: ");
                     int elegir=entrada.nextInt();
+
                     if (elegir == 1) {
                         System.out.print("Introduce otro nombre: ");
-                        nombreAlumno=entrada.next();
+                        nombreAlumno=entrada.nextLine();
 
-                        alumno.setNombre(nombreAlumno);
-                        alumnoDAO.updateAlumno(alumno);
+                        alumnoActualizado.setNombre(nombreAlumno);
+                        alumnoDAO.updateAlumno(alumnoActualizado);
 
                         System.out.println("Alumno actualizado");
-                        Main.mostrarAlumnos();
                     } else if (elegir == 2) {
                         System.out.print("Introduce otro correo: ");
-                        correo=entrada.next();
+                        correo=entrada.nextLine();
 
-                        alumno.setCorreo(correo);
-                        alumnoDAO.updateAlumno(alumno);
+                        alumnoActualizado.setCorreo(correo);
+                        alumnoDAO.updateAlumno(alumnoActualizado);
 
                         System.out.println("Alumno actualizado");
-                        Main.mostrarAlumnos();
                     } else if (elegir == 3) {
                         System.out.print("Introduce otra contraseña: ");
-                        contraseña=entrada.next();
+                        contraseña=entrada.nextLine();
 
-                        alumno.setContraseña(contraseña);
-                        alumnoDAO.updateAlumno(alumno);
+                        alumnoActualizado.setContraseña(contraseña);
+                        alumnoDAO.updateAlumno(alumnoActualizado);
 
                         System.out.println("Alumno actualizado");
-                        Main.mostrarAlumnos();
                     } else if (elegir == 4) {
                         System.out.print("Introduce otro teléfono: ");
                         telefono=entrada.nextInt();
 
-                        alumno.setTelefono(telefono);
-                        alumnoDAO.updateAlumno(alumno);
+                        alumnoActualizado.setTelefono(telefono);
+                        alumnoDAO.updateAlumno(alumnoActualizado);
 
                         System.out.println("Alumno actualizado");
-                        Main.mostrarAlumnos();
                     }
                     break;
                 case 3:
-                    Main.mostrarAlumnos();
+                    Main.mostrarAlumnos(alumnoDAO);
 
                     System.out.print("¿Qué alumno quieres borrar? Introduce su id: ");
-                    int idAlumno=entrada.nextInt();
+                    idAlumno=entrada.nextInt();
 
                     alumnoDAO.deleteAlumno(idAlumno);
 
                     System.out.println("Alumno borrado");
-                    Main.mostrarAlumnos();
                     break;
                 case 4:
+                    Main.mostrarAlumnos(alumnoDAO);
+                    break;
+                case 5:
                     System.out.print("Introduce un nombre: ");
-                    nombreAsignatura=entrada.next();
+                    nombreAsignatura=entrada.nextLine();
 
                     asignatura = new Asignatura(nombreAsignatura);
                     asignaturaDAO.insertAsignatura(asignatura);
 
                     System.out.println("Asignatura insertada");
-                    Main.mostrarAsignaturas();
-                    break;
-                case 5:
-                    Main.mostrarAsignaturas();
-                    
-                    System.out.print("¿Qué asignatura quieres actualizar?: ");
-                    int idAsignatura=entrada.nextInt();
-
-                    asignatura=asignaturaDAO.selectAsignaturaById(idAsignatura);
-
-                    System.out.print("Introduce otro nombre: ");
-                    nombreAsignatura=entrada.next();
-
-                    asignatura.setNombre(nombreAsignatura);
-                    asignaturaDAO.updateAsignatura(asignatura);
-
-                    System.out.println("Asignatura actualizada");
-                    Main.mostrarAsignaturas();
                     break;
                 case 6:
-                    Main.mostrarAsignaturas();
+                    Main.mostrarAsignaturas(asignaturaDAO);
                     
-                    System.out.print("¿Qué asignatura quieres borrar?: ");
+                    System.out.print("¿Qué asignatura quieres actualizar? Introduce su id: ");
+                    int idAsignatura=entrada.nextInt();
+
+                    Asignatura asignaturaActualizada=asignaturaDAO.selectAsignaturaById(idAsignatura);
+
+                    System.out.print("Introduce otro nombre: ");
+                    nombreAsignatura=entrada.nextLine();
+
+                    asignaturaActualizada.setNombre(nombreAsignatura);
+                    asignaturaDAO.updateAsignatura(asignaturaActualizada);
+
+                    System.out.println("Asignatura actualizada");
+                    break;
+                case 7:
+                    Main.mostrarAsignaturas(asignaturaDAO);
+                    
+                    System.out.print("¿Qué asignatura quieres borrar? Introduce su id: ");
                     idAsignatura=entrada.nextInt();
 
                     asignaturaDAO.deleteAsignatura(idAsignatura);
                 
                     System.out.println("Asignatura borrada");
-                    Main.mostrarAsignaturas();
                     break;
-                case 7:
-                    Main.mostrarAsignaturas();
+                case 8:
+                    Main.mostrarAsignaturas(asignaturaDAO);
+                    break;
+                case 9:
+                    Main.mostrarAsignaturas(asignaturaDAO);
 
-                    System.out.print("¿Qué asignatura quieres asignar? Introduce su id: ");
+                    System.out.print("Elige una asignatura. Introduce su id: ");
                     idAsignatura=entrada.nextInt();
 
                     Asignatura asignaturaSeleccionada=asignaturaDAO.selectAsignaturaById(idAsignatura);
 
-                    Main.mostrarAlumnos();
+                    Main.mostrarAlumnos(alumnoDAO);
 
                     System.out.print("¿A qué alumno quieres asignarle esa asignatura? Introduce su id: ");
                     idAlumno=entrada.nextInt();
@@ -197,15 +204,33 @@ public class Main {
                     Alumno alumnoSeleccionado=alumnoDAO.selectAlumnoById(idAlumno);
 
                     alumnoSeleccionado.añadirAsignatura(asignaturaSeleccionada);
-
+                    alumnoDAO.updateAlumno(alumnoSeleccionado);
                     break;
-                case 8:
+                case 10:
+                    Main.mostrarAsignaturas(asignaturaDAO);
+
+                    System.out.print("Elige una asignatura. Introduce su id: ");
+                    idAsignatura=entrada.nextInt();
+
+                    Asignatura asignaturaEliminada=asignaturaDAO.selectAsignaturaById(idAsignatura);
+
+                    Main.mostrarAlumnos(alumnoDAO);
+
+                    System.out.print("¿A qué alumno quieres eliminarle esa asignatura? Introduce su id: ");
+                    idAlumno=entrada.nextInt();
+
+                    Alumno alumnoEliminarAsignatura=alumnoDAO.selectAlumnoById(idAlumno);
+
+                    alumnoEliminarAsignatura.quitarAsignatura(asignaturaEliminada);
+                    alumnoDAO.updateAlumno(alumnoEliminarAsignatura);
+                    break;
+                case 11:
                     System.out.println("Has salido");
                     break;
                 default:
                     System.out.print("OPCIÓN NO VÁLIDA. Por favor, selecciona una opción del menú: ");
                     opcion=entrada.nextInt();
             }
-        } while (opcion!=8);
+        } while (opcion!=11);
     }
 }

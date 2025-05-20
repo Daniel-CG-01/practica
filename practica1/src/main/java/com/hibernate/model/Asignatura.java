@@ -5,7 +5,7 @@ import java.util.Set;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter @Setter
+@Getter @Setter @ToString
 
 @Entity
 @Table(name="asignatura")
@@ -19,7 +19,7 @@ public class Asignatura {
     String nombre;
 
     @ManyToMany(mappedBy = "asignaturas", fetch = FetchType.EAGER)
-    private Set<Alumno> alumnos = new HashSet();
+    private Set<Alumno> alumnos = new HashSet<>();
 
     public void añadirAlumno(Alumno al) {
         alumnos.add(al);

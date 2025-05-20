@@ -5,7 +5,7 @@ import java.util.Set;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter @Setter
+@Getter @Setter @ToString
 
 @Entity
 @Table(name="alumno")
@@ -29,7 +29,7 @@ public class Alumno {
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @JoinTable(name="alumno_asignatura", joinColumns = @JoinColumn(name = "idAlumno"), inverseJoinColumns = @JoinColumn(name = "idAsignatura"))
-    private Set<Asignatura> asignaturas = new HashSet();
+    private Set<Asignatura> asignaturas = new HashSet<>();
 
     public void añadirAsignatura(Asignatura as) {
         asignaturas.add(as);

@@ -113,38 +113,46 @@ public class Main {
                                          "Selecciona una opción: ");
                         int elegir=entrada.nextInt();
 
-                        if (elegir == 1) {
-                            System.out.print("Introduce otro nombre: ");
-                            nombreAlumno=entrada.nextLine();
+                        switch(elegir) {
+                            case 1:
+                                System.out.print("Introduce otro nombre: ");
+                                nombreAlumno=entrada.nextLine();
 
-                            alumnoActualizado.setNombre(nombreAlumno);
-                            alumnoDAO.updateAlumno(session, alumnoActualizado);
+                                alumnoActualizado.setNombre(nombreAlumno);
+                                alumnoDAO.updateAlumno(session, alumnoActualizado);
 
-                            System.out.println("Alumno actualizado");
-                        } else if (elegir == 2) {
-                            System.out.print("Introduce otro correo: ");
-                            correo=entrada.nextLine();
+                                System.out.println("Alumno actualizado");
+                                break;
+                            case 2:
+                                System.out.print("Introduce otro correo: ");
+                                correo=entrada.nextLine();
 
-                            alumnoActualizado.setCorreo(correo);
-                            alumnoDAO.updateAlumno(session, alumnoActualizado);
+                                alumnoActualizado.setCorreo(correo);
+                                alumnoDAO.updateAlumno(session, alumnoActualizado);
 
-                            System.out.println("Alumno actualizado");
-                        } else if (elegir == 3) {
-                            System.out.print("Introduce otra contraseña: ");
-                            contraseña=entrada.nextLine();
+                                System.out.println("Alumno actualizado");
+                                break;
+                            case 3:
+                                System.out.print("Introduce otra contraseña: ");
+                                contraseña=entrada.nextLine();
 
-                            alumnoActualizado.setContraseña(contraseña);
-                            alumnoDAO.updateAlumno(session, alumnoActualizado);
+                                alumnoActualizado.setContraseña(contraseña);
+                                alumnoDAO.updateAlumno(session, alumnoActualizado);
 
-                            System.out.println("Alumno actualizado");
-                        } else if (elegir == 4) {
-                            System.out.print("Introduce otro teléfono: ");
-                            telefono=entrada.nextInt();
+                                System.out.println("Alumno actualizado");
+                                break;
+                            case 4:
+                                System.out.print("Introduce otro teléfono: ");
+                                telefono=entrada.nextInt();
 
-                            alumnoActualizado.setTelefono(telefono);
-                            alumnoDAO.updateAlumno(session, alumnoActualizado);
+                                alumnoActualizado.setTelefono(telefono);
+                                alumnoDAO.updateAlumno(session, alumnoActualizado);
 
-                            System.out.println("Alumno actualizado");
+                                System.out.println("Alumno actualizado");
+                                break;
+                            default:
+                                System.out.print("OPCIÓN NO VÁLIDA. Por favor, selecciona un atributo del alumno: ");
+                                elegir=entrada.nextInt();
                         }
                         break;
                     case 3:

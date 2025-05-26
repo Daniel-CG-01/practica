@@ -31,7 +31,7 @@ CREATE TABLE `alumno` (
   `contraseña` varchar(255) DEFAULT NULL,
   `telefono` int NOT NULL,
   PRIMARY KEY (`idAlumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=453 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=953 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,6 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES (302,'Daniel','danielzanon2005@gmail.com','dnnlzo44',644703600);
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +61,7 @@ CREATE TABLE `alumno_SEQ` (
 
 LOCK TABLES `alumno_SEQ` WRITE;
 /*!40000 ALTER TABLE `alumno_SEQ` DISABLE KEYS */;
-INSERT INTO `alumno_SEQ` VALUES (551);
+INSERT INTO `alumno_SEQ` VALUES (1051);
 /*!40000 ALTER TABLE `alumno_SEQ` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,8 +77,8 @@ CREATE TABLE `alumno_asignatura` (
   `idAsignatura` int NOT NULL,
   PRIMARY KEY (`idAlumno`,`idAsignatura`),
   KEY `FKmtja6ocp94i0rdrr8p2o9gqle` (`idAsignatura`),
-  CONSTRAINT `FKmtja6ocp94i0rdrr8p2o9gqle` FOREIGN KEY (`idAsignatura`) REFERENCES `asignatura` (`idAsignatura`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FKprl7xova2sqprob8xdnry9u7u` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FKmtja6ocp94i0rdrr8p2o9gqle` FOREIGN KEY (`idAsignatura`) REFERENCES `asignatura` (`idAsignatura`),
+  CONSTRAINT `FKprl7xova2sqprob8xdnry9u7u` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -89,7 +88,6 @@ CREATE TABLE `alumno_asignatura` (
 
 LOCK TABLES `alumno_asignatura` WRITE;
 /*!40000 ALTER TABLE `alumno_asignatura` DISABLE KEYS */;
-INSERT INTO `alumno_asignatura` VALUES (302,152),(302,402);
 /*!40000 ALTER TABLE `alumno_asignatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +102,7 @@ CREATE TABLE `asignatura` (
   `idAsignatura` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idAsignatura`)
-) ENGINE=InnoDB AUTO_INCREMENT=403 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=853 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +111,6 @@ CREATE TABLE `asignatura` (
 
 LOCK TABLES `asignatura` WRITE;
 /*!40000 ALTER TABLE `asignatura` DISABLE KEYS */;
-INSERT INTO `asignatura` VALUES (152,'Programación'),(402,'Sistemas Informáticos');
 /*!40000 ALTER TABLE `asignatura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +132,7 @@ CREATE TABLE `asignatura_SEQ` (
 
 LOCK TABLES `asignatura_SEQ` WRITE;
 /*!40000 ALTER TABLE `asignatura_SEQ` DISABLE KEYS */;
-INSERT INTO `asignatura_SEQ` VALUES (501);
+INSERT INTO `asignatura_SEQ` VALUES (1001);
 /*!40000 ALTER TABLE `asignatura_SEQ` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -148,4 +145,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-20 11:13:55
+-- Dump completed on 2025-05-26 12:49:59

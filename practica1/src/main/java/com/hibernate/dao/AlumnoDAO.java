@@ -3,85 +3,34 @@ package com.hibernate.dao;
 import java.util.List;
 import org.hibernate.Session;
 import com.hibernate.model.Alumno;
-import com.hibernate.util.HibernateUtil;
-import org.hibernate.query.Query;
-import org.hibernate.Transaction;
 
 public class AlumnoDAO {
     
     //Inserción
-	public void insertAlumno(Alumno al) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.persist(al);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
+	public void insertAlumno(Session session, Alumno al) {
+		session.persist(al);
 	}
 
 	//Actualización
-	public void updateAlumno(Alumno al) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.merge(al);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
+	public void updateAlumno(Session session, Alumno al) {
+		session.merge(al);
 	}
 
 	//Borrado
-	public void deleteAlumno(int id) {
-		Transaction transaction = null;
-		Alumno al = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			al = session.get(Alumno.class, id);
+	public void deleteAlumno(Session session, int id) {
+		Alumno al = session.get(Alumno.class, id);
+		if (al != null) {
 			session.remove(al);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
 		}
 	}
 
 	//Selección simple
-	public Alumno selectAlumnoById(int id) {
-		Transaction transaction = null;
-		Alumno al = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			al = session.get(Alumno.class, id);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
-		return al;
+	public Alumno selectAlumnoById(Session session, int id) {
+		return session.get(Alumno.class, id);
 	}
 
 	//Selección múltiple
-	public List<Alumno> selectAllAlumnos() {
-		Transaction transaction = null;
-		List<Alumno> alumnos = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			alumnos = session.createQuery("FROM Alumno", Alumno.class).getResultList();
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
-		return alumnos;
+	public List<Alumno> selectAllAlumnos(Session session) {
+		return session.createQuery("FROM Alumno", Alumno.class).getResultList();
 	}
 }

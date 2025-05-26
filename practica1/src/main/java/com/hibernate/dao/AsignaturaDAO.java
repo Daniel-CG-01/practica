@@ -3,85 +3,34 @@ package com.hibernate.dao;
 import java.util.List;
 import org.hibernate.Session;
 import com.hibernate.model.Asignatura;
-import com.hibernate.util.HibernateUtil;
-import org.hibernate.query.Query;
-import org.hibernate.Transaction;
 
 public class AsignaturaDAO {
 
     //Inserción
-	public void insertAsignatura(Asignatura as) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.persist(as);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
+	public void insertAsignatura(Session session, Asignatura as) {
+		session.persist(as);
 	}
 
 	//Actualización
-	public void updateAsignatura(Asignatura as) {
-		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			session.merge(as);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
+	public void updateAsignatura(Session session, Asignatura as) {
+		session.merge(as);
 	}
 
 	//Borrado
-	public void deleteAsignatura(int id) {
-		Transaction transaction = null;
-		Asignatura as = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			as = session.get(Asignatura.class, id);
+	public void deleteAsignatura(Session session, int id) {
+		Asignatura as = session.get(Asignatura.class, id);
+		if (as != null) {
 			session.remove(as);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
 		}
 	}
 
 	//Selección simple
-	public Asignatura selectAsignaturaById(int id) {
-		Transaction transaction = null;
-		Asignatura as = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			as = session.get(Asignatura.class, id);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
-		return as;
+	public Asignatura selectAsignaturaById(Session session, int id) {
+		return session.get(Asignatura.class, id);
 	}
 
 	//Selección múltiple
-	public List<Asignatura> selectAllAsignaturas() {
-		Transaction transaction = null;
-		List<Asignatura> asignaturas = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			transaction = session.beginTransaction();
-			asignaturas = session.createQuery("FROM Asignatura", Asignatura.class).getResultList();
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			}
-		}
-		return asignaturas;
+	public List<Asignatura> selectAllAsignaturas(Session session) {
+		return session.createQuery("FROM Asignatura", Asignatura.class).getResultList();
 	}
 }

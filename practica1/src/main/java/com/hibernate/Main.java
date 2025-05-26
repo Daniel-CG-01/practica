@@ -26,7 +26,8 @@ public class Main {
         System.out.println("Mostrar asignaturas (8)");
         System.out.println("Asignar una asignatura a un alumno (9)");
         System.out.println("Quitar una asignatura a un alumno (10)");
-        System.out.println("Salir (11)");
+        System.out.println("Mostrar relaciones (11)");
+        System.out.println("Salir (12)");
         System.out.println();
     }
 
@@ -112,7 +113,9 @@ public class Main {
                         System.out.print("¿Qué quieres actualizar? (nombre = 1 | correo = 2 | contraseña = 3 | teléfono = 4) "+
                                          "Selecciona una opción: ");
                         int elegir=entrada.nextInt();
-    
+
+                        entrada.nextLine();
+
                         switch(elegir) {
                             case 1:
                                 System.out.print("Introduce otro nombre: ");
@@ -245,6 +248,24 @@ public class Main {
                         alumnoDAO.updateAlumno(session, alumnoEliminarAsignatura);
                         break;
                     case 11:
+                        List<Alumno> alumnos = alumnoDAO.selectAllAlumnos(session);
+
+                        System.out.println();
+
+                        for (Alumno al : alumnos) {
+                            System.out.println("Alumno: "+al.getNombre());
+                            if (al.getAsignaturas().isEmpty()) {
+                                System.out.println(" - No tiene asignaturas");
+                            } else {
+                                for (Asignatura as : al.getAsignaturas()) {
+                                    System.out.println(" - "+as.getNombre());
+                                }
+                            }
+                        }
+
+                        System.out.println();
+                        break;
+                    case 12:
                         System.out.println("Has salido");
                         break;
                     default:
@@ -262,6 +283,6 @@ public class Main {
             } finally {
                 session.close();
             }
-        } while (opcion!=11);
+        } while (opcion!=12);
     }
 }

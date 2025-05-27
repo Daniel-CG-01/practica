@@ -28,12 +28,12 @@ public class WindowBuilder {
 
     JFrame frame = new JFrame("Colegio");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(1150, 438);
+    frame.setSize(1150, 550);
     JPanel panel = new JPanel();
     panel.setLayout(null);
     panel.setBackground(Color.decode("#f4c064"));
 
-    JLabel lblAlumno = new JLabel("Alumno");
+    JLabel lblAlumno = new JLabel("Alumnos");
     lblAlumno.setBounds(5, 5, 106, 18);
     lblAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
     lblAlumno.setForeground(Color.decode("#000"));
@@ -105,7 +105,7 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldIdAlumno, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldIdAlumno);
 
-    textFieldIdAlumno.setEditable(false);
+    //textFieldIdAlumno.setEditable(false);
 
     JTextField textFieldNombreAlumno = new JTextField("");
     textFieldNombreAlumno.setBounds(200, 60, 106, 21);
@@ -143,41 +143,32 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldTelefono, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldTelefono);
 
-    JButton botonInsertarAlumno = new JButton("Insertar Alumno");
-    botonInsertarAlumno.setBounds(200, 200, 150, 29);
-    botonInsertarAlumno.setBackground(Color.decode("#bca8e4"));
-    botonInsertarAlumno.setForeground(Color.decode("#000"));
-    botonInsertarAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
-    botonInsertarAlumno.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
-    botonInsertarAlumno.setFocusPainted(false);
-    OnClickEventHelper.setOnClickColor(botonInsertarAlumno, Color.decode("#7c6f97"), Color.decode("#bca8e4"));
-    panel.add(botonInsertarAlumno);
-
-    JButton botonActualizarAlumno = new JButton("Actualizar Alumno");
-    botonActualizarAlumno.setBounds(360, 200, 150, 29);
-    botonActualizarAlumno.setBackground(Color.decode("#bca8e4"));
-    botonActualizarAlumno.setForeground(Color.decode("#000"));
-    botonActualizarAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
-    botonActualizarAlumno.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
-    botonActualizarAlumno.setFocusPainted(false);
-    OnClickEventHelper.setOnClickColor(botonActualizarAlumno, Color.decode("#7c6f97"), Color.decode("#bca8e4"));
-    panel.add(botonActualizarAlumno);
-
-    JButton botonBorrarAlumno = new JButton("Borrar Alumno");
-    botonBorrarAlumno.setBounds(520, 200, 150, 29);
-    botonBorrarAlumno.setBackground(Color.decode("#bca8e4"));
-    botonBorrarAlumno.setForeground(Color.decode("#000"));
-    botonBorrarAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
-    botonBorrarAlumno.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
-    botonBorrarAlumno.setFocusPainted(false);
-    OnClickEventHelper.setOnClickColor(botonBorrarAlumno, Color.decode("#7c6f97"), Color.decode("#bca8e4"));
-    panel.add(botonBorrarAlumno);
-
-    JLabel lblAsignatura = new JLabel("Asignatura");
+    JLabel lblAsignatura = new JLabel("Asignaturas");
     lblAsignatura.setBounds(5, 225, 106, 18);
     lblAsignatura.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
     lblAsignatura.setForeground(Color.decode("#000"));
     panel.add(lblAsignatura);
+
+    DefaultTableModel modelTableAsignatura = new DefaultTableModel();
+    modelTableAsignatura.addColumn("Id");
+    modelTableAsignatura.addColumn("Nombre");
+
+    List<Asignatura> asignaturas = asignaturaDAO.selectAllAsignaturas(session);
+
+    for (Asignatura as : asignaturas) {
+      Object[] row = new Object[2];
+      row[0] = as.getId();
+      row[1] = as.getNombre();
+      modelTableAsignatura.addRow(row);
+    }
+
+    JTable tableAsignatura = new JTable(modelTableAsignatura);
+    tableAsignatura.setBounds(680, 250, 400, 200);
+    frame.getContentPane().add(tableAsignatura);
+
+    JScrollPane scrollPaneAsignatura = new JScrollPane(tableAsignatura);
+    scrollPaneAsignatura.setBounds(680, 250, 400, 200);
+    frame.getContentPane().add(scrollPaneAsignatura);
 
     JLabel lblIdAsignatura = new JLabel("Id:");
     lblIdAsignatura.setBounds(60, 250, 106, 18);
@@ -200,7 +191,7 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldIdAsignatura, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldIdAsignatura);
 
-    textFieldIdAsignatura.setEditable(false);
+    //textFieldIdAsignatura.setEditable(false);
 
     JTextField textFieldNombreAsignatura = new JTextField("");
     textFieldNombreAsignatura.setBounds(200, 280, 106, 24);
@@ -211,6 +202,36 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldNombreAsignatura, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldNombreAsignatura);
 
+    JButton botonInsertarAlumno = new JButton("Insertar Alumno");
+    botonInsertarAlumno.setBounds(200, 200, 150, 29);
+    botonInsertarAlumno.setBackground(Color.decode("#bca8e4"));
+    botonInsertarAlumno.setForeground(Color.decode("#000"));
+    botonInsertarAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    botonInsertarAlumno.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
+    botonInsertarAlumno.setFocusPainted(false);
+    OnClickEventHelper.setOnClickColor(botonInsertarAlumno, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
+    panel.add(botonInsertarAlumno);
+
+    JButton botonActualizarAlumno = new JButton("Actualizar Alumno");
+    botonActualizarAlumno.setBounds(360, 200, 150, 29);
+    botonActualizarAlumno.setBackground(Color.decode("#bca8e4"));
+    botonActualizarAlumno.setForeground(Color.decode("#000"));
+    botonActualizarAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    botonActualizarAlumno.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
+    botonActualizarAlumno.setFocusPainted(false);
+    OnClickEventHelper.setOnClickColor(botonActualizarAlumno, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
+    panel.add(botonActualizarAlumno);
+
+    JButton botonBorrarAlumno = new JButton("Borrar Alumno");
+    botonBorrarAlumno.setBounds(520, 200, 150, 29);
+    botonBorrarAlumno.setBackground(Color.decode("#bca8e4"));
+    botonBorrarAlumno.setForeground(Color.decode("#000"));
+    botonBorrarAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    botonBorrarAlumno.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
+    botonBorrarAlumno.setFocusPainted(false);
+    OnClickEventHelper.setOnClickColor(botonBorrarAlumno, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
+    panel.add(botonBorrarAlumno);
+
     JButton botonInsertarAsignatura = new JButton("Insertar Asignatura");
     botonInsertarAsignatura.setBounds(200, 330, 150, 30);
     botonInsertarAsignatura.setBackground(Color.decode("#bca8e4"));
@@ -218,7 +239,7 @@ public class WindowBuilder {
     botonInsertarAsignatura.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
     botonInsertarAsignatura.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
     botonInsertarAsignatura.setFocusPainted(false);
-    OnClickEventHelper.setOnClickColor(botonInsertarAsignatura, Color.decode("#7c6f97"), Color.decode("#bca8e4"));
+    OnClickEventHelper.setOnClickColor(botonInsertarAsignatura, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
     panel.add(botonInsertarAsignatura);
 
     JButton botonActualizarAsignatura = new JButton("Actualizar Asignatura");
@@ -228,7 +249,7 @@ public class WindowBuilder {
     botonActualizarAsignatura.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
     botonActualizarAsignatura.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
     botonActualizarAsignatura.setFocusPainted(false);
-    OnClickEventHelper.setOnClickColor(botonActualizarAsignatura, Color.decode("#7c6f97"), Color.decode("#bca8e4"));
+    OnClickEventHelper.setOnClickColor(botonActualizarAsignatura, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
     panel.add(botonActualizarAsignatura);
 
     JButton botonBorrarAsignatura = new JButton("Borrar Asignatura");
@@ -238,7 +259,7 @@ public class WindowBuilder {
     botonBorrarAsignatura.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
     botonBorrarAsignatura.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
     botonBorrarAsignatura.setFocusPainted(false);
-    OnClickEventHelper.setOnClickColor(botonBorrarAsignatura, Color.decode("#7c6f97"), Color.decode("#bca8e4"));
+    OnClickEventHelper.setOnClickColor(botonBorrarAsignatura, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
     panel.add(botonBorrarAsignatura);
 
     frame.add(panel);

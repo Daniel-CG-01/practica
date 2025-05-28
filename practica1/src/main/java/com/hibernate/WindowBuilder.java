@@ -210,8 +210,8 @@ public class WindowBuilder {
       if (!event.getValueIsAdjusting() && tableAsignatura.getSelectedRow() != -1) {
         int index = tableAsignatura.getSelectedRow();
 
-        textFieldIdAsignatura.setText(tableAlumno.getValueAt(index, 0).toString());
-        textFieldNombreAsignatura.setText(tableAlumno.getValueAt(index, 1).toString());
+        textFieldIdAsignatura.setText(tableAsignatura.getValueAt(index, 0).toString());
+        textFieldNombreAsignatura.setText(tableAsignatura.getValueAt(index, 1).toString());
       }
     });
     tableAsignatura.setBounds(680, 250, 400, 200);

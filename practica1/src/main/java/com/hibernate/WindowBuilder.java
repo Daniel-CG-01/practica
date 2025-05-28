@@ -58,14 +58,6 @@ public class WindowBuilder {
       modelTableAlumno.addRow(row);
     }
 
-    JTable tableAlumno = new JTable(modelTableAlumno);
-    tableAlumno.setBounds(680, 24, 400, 200);
-    frame.getContentPane().add(tableAlumno);
-
-    JScrollPane scrollPaneAlumno = new JScrollPane(tableAlumno);
-    scrollPaneAlumno.setBounds(680, 24, 400, 200);
-    frame.getContentPane().add(scrollPaneAlumno);
-
     JLabel lblIdAlumno = new JLabel("Id:");
     lblIdAlumno.setBounds(60, 30, 106, 18);
     lblIdAlumno.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
@@ -105,7 +97,7 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldIdAlumno, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldIdAlumno);
 
-    //textFieldIdAlumno.setEditable(false);
+    textFieldIdAlumno.setEditable(false);
 
     JTextField textFieldNombreAlumno = new JTextField("");
     textFieldNombreAlumno.setBounds(200, 60, 106, 21);
@@ -143,6 +135,25 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldTelefono, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldTelefono);
 
+    JTable tableAlumno = new JTable(modelTableAlumno);
+    tableAlumno.getSelectionModel().addListSelectionListener(event -> {
+      if (!event.getValueIsAdjusting() && tableAlumno.getSelectedRow() != -1) {
+        int index = tableAlumno.getSelectedRow();
+
+        textFieldIdAlumno.setText(tableAlumno.getValueAt(index, 0).toString());
+        textFieldNombreAlumno.setText(tableAlumno.getValueAt(index, 1).toString());
+        textFieldCorreo.setText(tableAlumno.getValueAt(index, 2).toString());
+        textFieldContrasenya.setText(tableAlumno.getValueAt(index, 3).toString());
+        textFieldTelefono.setText(tableAlumno.getValueAt(index, 4).toString());
+      }
+    });
+    tableAlumno.setBounds(680, 24, 400, 200);
+    frame.getContentPane().add(tableAlumno);
+
+    JScrollPane scrollPaneAlumno = new JScrollPane(tableAlumno);
+    scrollPaneAlumno.setBounds(680, 24, 400, 200);
+    frame.getContentPane().add(scrollPaneAlumno);
+
     JLabel lblAsignatura = new JLabel("Asignaturas");
     lblAsignatura.setBounds(5, 225, 106, 18);
     lblAsignatura.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
@@ -161,14 +172,6 @@ public class WindowBuilder {
       row[1] = as.getNombre();
       modelTableAsignatura.addRow(row);
     }
-
-    JTable tableAsignatura = new JTable(modelTableAsignatura);
-    tableAsignatura.setBounds(680, 250, 400, 200);
-    frame.getContentPane().add(tableAsignatura);
-
-    JScrollPane scrollPaneAsignatura = new JScrollPane(tableAsignatura);
-    scrollPaneAsignatura.setBounds(680, 250, 400, 200);
-    frame.getContentPane().add(scrollPaneAsignatura);
 
     JLabel lblIdAsignatura = new JLabel("Id:");
     lblIdAsignatura.setBounds(60, 250, 106, 18);
@@ -191,7 +194,7 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldIdAsignatura, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldIdAsignatura);
 
-    //textFieldIdAsignatura.setEditable(false);
+    textFieldIdAsignatura.setEditable(false);
 
     JTextField textFieldNombreAsignatura = new JTextField("");
     textFieldNombreAsignatura.setBounds(200, 280, 106, 24);
@@ -201,6 +204,22 @@ public class WindowBuilder {
     textFieldNombreAsignatura.setBorder(new RoundedBorder(2, Color.decode("#000"), 1));
     OnFocusEventHelper.setOnFocusText(textFieldNombreAsignatura, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldNombreAsignatura);
+
+    JTable tableAsignatura = new JTable(modelTableAsignatura);
+    tableAsignatura.getSelectionModel().addListSelectionListener(event -> {
+      if (!event.getValueIsAdjusting() && tableAsignatura.getSelectedRow() != -1) {
+        int index = tableAsignatura.getSelectedRow();
+
+        textFieldIdAsignatura.setText(tableAlumno.getValueAt(index, 0).toString());
+        textFieldNombreAsignatura.setText(tableAlumno.getValueAt(index, 1).toString());
+      }
+    });
+    tableAsignatura.setBounds(680, 250, 400, 200);
+    frame.getContentPane().add(tableAsignatura);
+
+    JScrollPane scrollPaneAsignatura = new JScrollPane(tableAsignatura);
+    scrollPaneAsignatura.setBounds(680, 250, 400, 200);
+    frame.getContentPane().add(scrollPaneAsignatura);
 
     JButton botonInsertarAlumno = new JButton("Insertar Alumno");
     botonInsertarAlumno.setBounds(200, 200, 150, 29);

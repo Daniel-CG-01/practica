@@ -27,7 +27,9 @@ public class OnClickEventHelper {
                                        JTextField textFieldCorreo, JTextField textFieldContraseña, 
                                        JTextField textFieldTelefono, 
                                        JTextField textFieldIdAsignatura, JTextField textFieldNombreAsignatura, 
-                                       DefaultTableModel modelTableAlumno, DefaultTableModel modelTableAsignatura, 
+                                       DefaultTableModel modelTableAlumno, DefaultTableModel modelTableAsignatura,
+                                       JTextField textFieldIdAlumnoRelacion, JTextField textFieldIdAsignaturaRelacion, 
+                                       DefaultTableModel modelTableAlumno_Asignatura, 
                                        Session session) {
 
         button.addMouseListener(new MouseAdapter() {
@@ -219,9 +221,79 @@ public class OnClickEventHelper {
                             modelTableAsignatura.addRow(row);
                         }
                     } else if (button.getText().equals("Añadir relación")) {
-                        System.out.println("Añadir relación");
+                        String idAlumnoTexto=textFieldIdAlumnoRelacion.getText();
+                        int idAlumno=Integer.parseInt(idAlumnoTexto);
+
+                        String idAsignaturaTexto=textFieldIdAsignaturaRelacion.getText();
+                        int idAsignatura=Integer.parseInt(idAsignaturaTexto);
+
+                        Alumno alumnoSeleccionado=alumnoDAO.selectAlumnoById(session, idAlumno);
+
+                        Asignatura asignaturaSeleccionada=asignaturaDAO.selectAsignaturaById(session, idAsignatura);
+
+                        alumnoSeleccionado.añadirAsignatura(asignaturaSeleccionada);
+
+                        System.out.println("Relación añadida");
+
+                        textFieldIdAlumnoRelacion.setText("");
+                        textFieldIdAsignaturaRelacion.setText("");
+
+                        List<Alumno> alumnos = alumnoDAO.selectAllAlumnos(session);
+
+                        modelTableAlumno_Asignatura.setRowCount(0);
+
+                        for (Alumno al : alumnos) {
+                            if (al.getAsignaturas().isEmpty()) {
+                                Object[] row = new Object[2];
+                                row[0] = al.getId();
+                                row[1] = "Sin asignaturas";
+                                modelTableAlumno_Asignatura.addRow(row);
+                            } else {
+                                for (Asignatura as : al.getAsignaturas()) {
+                                    Object[] row = new Object[2];
+                                    row[0] = al.getId();
+                                    row[1] = as.getId();
+                                    modelTableAlumno_Asignatura.addRow(row);
+                                }
+                            }
+                        }
                     } else if (button.getText().equals("Eliminar relación")) {
-                        System.out.println("Eliminar relación");
+                        String idAlumnoTexto=textFieldIdAlumnoRelacion.getText();
+                        int idAlumno=Integer.parseInt(idAlumnoTexto);
+
+                        String idAsignaturaTexto=textFieldIdAsignaturaRelacion.getText();
+                        int idAsignatura=Integer.parseInt(idAsignaturaTexto);
+
+                        Alumno alumnoSeleccionado=alumnoDAO.selectAlumnoById(session, idAlumno);
+
+                        Asignatura asignaturaSeleccionada=asignaturaDAO.selectAsignaturaById(session, idAsignatura);
+
+                        alumnoSeleccionado.quitarAsignatura(asignaturaSeleccionada);
+
+                        System.out.println("Relación añadida");
+
+                        textFieldIdAlumnoRelacion.setText("");
+                        textFieldIdAsignaturaRelacion.setText("");
+
+                        List<Alumno> alumnos = alumnoDAO.selectAllAlumnos(session);
+
+                        modelTableAlumno_Asignatura.setRowCount(0);
+
+                        for (Alumno al : alumnos) {
+                            if (al.getAsignaturas().isEmpty()) {
+                                Object[] row = new Object[2];
+                                row[0] = al.getId();
+                                row[1] = "Sin asignaturas";
+                                modelTableAlumno_Asignatura.addRow(row);
+                            } else {
+                                for (Asignatura as : al.getAsignaturas()) {
+                                    Object[] row = new Object[2];
+                                    row[0] = al.getId();
+                                    row[1] = as.getId();
+                                    modelTableAlumno_Asignatura.addRow(row);
+                                }
+                            }
+                        }
                     }
 
                     transaction.commit();

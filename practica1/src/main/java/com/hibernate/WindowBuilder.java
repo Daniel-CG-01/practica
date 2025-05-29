@@ -28,7 +28,7 @@ public class WindowBuilder {
 
     JFrame frame = new JFrame("Colegio");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(1150, 550);
+    frame.setSize(1150, 780);
     JPanel panel = new JPanel();
     panel.setLayout(null);
     panel.setBackground(Color.decode("#f4c064"));
@@ -180,7 +180,7 @@ public class WindowBuilder {
     panel.add(lblIdAsignatura);
 
     JLabel lblNombreAsignatura = new JLabel("Nombre:");
-    lblNombreAsignatura.setBounds(60, 280, 106, 18);
+    lblNombreAsignatura.setBounds(60, 280, 310, 18);
     lblNombreAsignatura.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
     lblNombreAsignatura.setForeground(Color.decode("#000"));
     panel.add(lblNombreAsignatura);
@@ -280,6 +280,100 @@ public class WindowBuilder {
     botonBorrarAsignatura.setFocusPainted(false);
     OnClickEventHelper.setOnClickColor(botonBorrarAsignatura, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
     panel.add(botonBorrarAsignatura);
+
+    JLabel lblAlumno_Asignatura = new JLabel("Alumno_Asignatura");
+    lblAlumno_Asignatura.setBounds(5, 350, 150, 18);
+    lblAlumno_Asignatura.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    lblAlumno_Asignatura.setForeground(Color.decode("#000"));
+    panel.add(lblAlumno_Asignatura);
+
+    JLabel lblIdAlumnoRelacion = new JLabel("Id del Alumno:");
+    lblIdAlumnoRelacion.setBounds(60, 375, 106, 18);
+    lblIdAlumnoRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    lblIdAlumnoRelacion.setForeground(Color.decode("#000"));
+    panel.add(lblIdAlumnoRelacion);
+
+    JLabel lblIdAsignaturaRelacion = new JLabel("Id de la Asignatura:");
+    lblIdAsignaturaRelacion.setBounds(60, 405, 140, 18);
+    lblIdAsignaturaRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    lblIdAsignaturaRelacion.setForeground(Color.decode("#000"));
+    panel.add(lblIdAsignaturaRelacion);
+
+    JTextField textFieldIdAlumnoRelacion = new JTextField("");
+    textFieldIdAlumnoRelacion.setBounds(200, 375, 106, 24);
+    textFieldIdAlumnoRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    textFieldIdAlumnoRelacion.setBackground(Color.decode("#ffe7bf"));
+    textFieldIdAlumnoRelacion.setForeground(Color.decode("#73664e"));
+    textFieldIdAlumnoRelacion.setBorder(new RoundedBorder(2, Color.decode("#000"), 1));
+    OnFocusEventHelper.setOnFocusText(textFieldIdAlumnoRelacion, "", Color.decode("#000"),   Color.decode("#73664e"));
+    panel.add(textFieldIdAlumnoRelacion);
+
+    JTextField textFieldIdAsignaturaRelacion = new JTextField("");
+    textFieldIdAsignaturaRelacion.setBounds(200, 405, 106, 24);
+    textFieldIdAsignaturaRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    textFieldIdAsignaturaRelacion.setBackground(Color.decode("#ffe7bf"));
+    textFieldIdAsignaturaRelacion.setForeground(Color.decode("#73664e"));
+    textFieldIdAsignaturaRelacion.setBorder(new RoundedBorder(2, Color.decode("#000"), 1));
+    OnFocusEventHelper.setOnFocusText(textFieldIdAsignaturaRelacion, "", Color.decode("#000"),   Color.decode("#73664e"));
+    panel.add(textFieldIdAsignaturaRelacion);
+
+    JButton botonAnyadirRelacion = new JButton("Añadir relación");
+    botonAnyadirRelacion.setBounds(200, 455, 150, 29);
+    botonAnyadirRelacion.setBackground(Color.decode("#bca8e4"));
+    botonAnyadirRelacion.setForeground(Color.decode("#000"));
+    botonAnyadirRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    botonAnyadirRelacion.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
+    botonAnyadirRelacion.setFocusPainted(false);
+    OnClickEventHelper.setOnClickColor(botonAnyadirRelacion, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
+    panel.add(botonAnyadirRelacion);
+
+    JButton botonEliminarRelacion = new JButton("Eliminar relación");
+    botonEliminarRelacion.setBounds(360, 455, 150, 29);
+    botonEliminarRelacion.setBackground(Color.decode("#bca8e4"));
+    botonEliminarRelacion.setForeground(Color.decode("#000"));
+    botonEliminarRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    botonEliminarRelacion.setBorder(new RoundedBorder(4, Color.decode("#3d364a"), 1));
+    botonEliminarRelacion.setFocusPainted(false);
+    OnClickEventHelper.setOnClickColor(botonEliminarRelacion, Color.decode("#7c6f97"), Color.decode("#bca8e4"), textFieldIdAlumno, textFieldNombreAlumno, textFieldCorreo, textFieldContrasenya, textFieldTelefono, textFieldIdAsignatura, textFieldNombreAsignatura, modelTableAlumno, modelTableAsignatura, session);
+    panel.add(botonEliminarRelacion);
+
+    DefaultTableModel modelTableAlumno_Asignatura = new DefaultTableModel();
+    modelTableAlumno_Asignatura.addColumn("IdAlumno");
+    modelTableAlumno_Asignatura.addColumn("IdAsignatura");
+
+    List<Alumno> alumno_asignatura = alumnoDAO.selectAllAlumnos(session);
+
+    for (Alumno al : alumnos) {
+      if (al.getAsignaturas().isEmpty()) {
+        Object[] row = new Object[2];
+        row[0] = al.getId();
+        row[1] = "Sin asignaturas";
+        modelTableAlumno_Asignatura.addRow(row);
+      } else {
+        for (Asignatura as : al.getAsignaturas()) {
+          Object[] row = new Object[2];
+          row[0] = al.getId();
+          row[1] = as.getId();
+          modelTableAlumno_Asignatura.addRow(row);
+        }
+      }
+    }
+
+    JTable tableAlumno_Asignatura = new JTable(modelTableAlumno_Asignatura);
+    tableAlumno_Asignatura.getSelectionModel().addListSelectionListener(event -> {
+      if (!event.getValueIsAdjusting() && tableAlumno_Asignatura.getSelectedRow() != -1) {
+        int index = tableAlumno_Asignatura.getSelectedRow();
+
+        textFieldIdAlumnoRelacion.setText(tableAlumno_Asignatura.getValueAt(index, 0).toString());
+        textFieldIdAsignaturaRelacion.setText(tableAlumno_Asignatura.getValueAt(index, 1).toString());
+      }
+    });
+    tableAlumno_Asignatura.setBounds(200, 500, 400, 200);
+    frame.getContentPane().add(tableAlumno_Asignatura);
+
+    JScrollPane scrollPaneAlumno_Asignatura = new JScrollPane(tableAlumno_Asignatura);
+    scrollPaneAlumno_Asignatura.setBounds(200, 500, 400, 200);
+    frame.getContentPane().add(scrollPaneAlumno_Asignatura);
 
     frame.add(panel);
     frame.setVisible(true);

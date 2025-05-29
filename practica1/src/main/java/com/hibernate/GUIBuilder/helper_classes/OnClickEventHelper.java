@@ -218,6 +218,10 @@ public class OnClickEventHelper {
                             row[1] = as.getNombre();
                             modelTableAsignatura.addRow(row);
                         }
+                    } else if (button.getText().equals("Añadir relación")) {
+                        System.out.println("Añadir relación");
+                    } else if (button.getText().equals("Eliminar relación")) {
+                        System.out.println("Eliminar relación");
                     }
 
                     transaction.commit();

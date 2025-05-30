@@ -135,6 +135,15 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldTelefono, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldTelefono);
 
+    JTextField textFieldIdAlumnoRelacion = new JTextField("");
+    textFieldIdAlumnoRelacion.setBounds(200, 375, 106, 24);
+    textFieldIdAlumnoRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    textFieldIdAlumnoRelacion.setBackground(Color.decode("#ffe7bf"));
+    textFieldIdAlumnoRelacion.setForeground(Color.decode("#73664e"));
+    textFieldIdAlumnoRelacion.setBorder(new RoundedBorder(2, Color.decode("#000"), 1));
+    OnFocusEventHelper.setOnFocusText(textFieldIdAlumnoRelacion, "", Color.decode("#000"),   Color.decode("#73664e"));
+    panel.add(textFieldIdAlumnoRelacion);
+
     JTable tableAlumno = new JTable(modelTableAlumno);
     tableAlumno.getSelectionModel().addListSelectionListener(event -> {
       if (!event.getValueIsAdjusting() && tableAlumno.getSelectedRow() != -1) {
@@ -145,6 +154,8 @@ public class WindowBuilder {
         textFieldCorreo.setText(tableAlumno.getValueAt(index, 2).toString());
         textFieldContrasenya.setText(tableAlumno.getValueAt(index, 3).toString());
         textFieldTelefono.setText(tableAlumno.getValueAt(index, 4).toString());
+        
+        textFieldIdAlumnoRelacion.setText(tableAlumno.getValueAt(index, 0).toString());
       }
     });
     tableAlumno.setBounds(680, 24, 400, 200);
@@ -205,6 +216,15 @@ public class WindowBuilder {
     OnFocusEventHelper.setOnFocusText(textFieldNombreAsignatura, "", Color.decode("#000"),   Color.decode("#73664e"));
     panel.add(textFieldNombreAsignatura);
 
+    JTextField textFieldIdAsignaturaRelacion = new JTextField("");
+    textFieldIdAsignaturaRelacion.setBounds(200, 405, 106, 24);
+    textFieldIdAsignaturaRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
+    textFieldIdAsignaturaRelacion.setBackground(Color.decode("#ffe7bf"));
+    textFieldIdAsignaturaRelacion.setForeground(Color.decode("#73664e"));
+    textFieldIdAsignaturaRelacion.setBorder(new RoundedBorder(2, Color.decode("#000"), 1));
+    OnFocusEventHelper.setOnFocusText(textFieldIdAsignaturaRelacion, "", Color.decode("#000"),   Color.decode("#73664e"));
+    panel.add(textFieldIdAsignaturaRelacion);
+
     JTable tableAsignatura = new JTable(modelTableAsignatura);
     tableAsignatura.getSelectionModel().addListSelectionListener(event -> {
       if (!event.getValueIsAdjusting() && tableAsignatura.getSelectedRow() != -1) {
@@ -212,6 +232,8 @@ public class WindowBuilder {
 
         textFieldIdAsignatura.setText(tableAsignatura.getValueAt(index, 0).toString());
         textFieldNombreAsignatura.setText(tableAsignatura.getValueAt(index, 1).toString());
+
+        textFieldIdAsignaturaRelacion.setText(tableAsignatura.getValueAt(index, 0).toString());
       }
     });
     tableAsignatura.setBounds(680, 250, 400, 200);
@@ -238,24 +260,6 @@ public class WindowBuilder {
     lblIdAsignaturaRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
     lblIdAsignaturaRelacion.setForeground(Color.decode("#000"));
     panel.add(lblIdAsignaturaRelacion);
-
-    JTextField textFieldIdAlumnoRelacion = new JTextField("");
-    textFieldIdAlumnoRelacion.setBounds(200, 375, 106, 24);
-    textFieldIdAlumnoRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
-    textFieldIdAlumnoRelacion.setBackground(Color.decode("#ffe7bf"));
-    textFieldIdAlumnoRelacion.setForeground(Color.decode("#73664e"));
-    textFieldIdAlumnoRelacion.setBorder(new RoundedBorder(2, Color.decode("#000"), 1));
-    OnFocusEventHelper.setOnFocusText(textFieldIdAlumnoRelacion, "", Color.decode("#000"),   Color.decode("#73664e"));
-    panel.add(textFieldIdAlumnoRelacion);
-
-    JTextField textFieldIdAsignaturaRelacion = new JTextField("");
-    textFieldIdAsignaturaRelacion.setBounds(200, 405, 106, 24);
-    textFieldIdAsignaturaRelacion.setFont(CustomFontLoader.loadFont("./resources/fonts/Lexend.ttf", 14));
-    textFieldIdAsignaturaRelacion.setBackground(Color.decode("#ffe7bf"));
-    textFieldIdAsignaturaRelacion.setForeground(Color.decode("#73664e"));
-    textFieldIdAsignaturaRelacion.setBorder(new RoundedBorder(2, Color.decode("#000"), 1));
-    OnFocusEventHelper.setOnFocusText(textFieldIdAsignaturaRelacion, "", Color.decode("#000"),   Color.decode("#73664e"));
-    panel.add(textFieldIdAsignaturaRelacion);
 
     DefaultTableModel modelTableAlumno_Asignatura = new DefaultTableModel();
     modelTableAlumno_Asignatura.addColumn("IdAlumno");

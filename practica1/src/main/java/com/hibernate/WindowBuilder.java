@@ -264,18 +264,11 @@ public class WindowBuilder {
     List<Alumno> alumno_asignatura = alumnoDAO.selectAllAlumnos(session);
 
     for (Alumno al : alumno_asignatura) {
-      if (al.getAsignaturas().isEmpty()) {
+      for (Asignatura as : al.getAsignaturas()) {
         Object[] row = new Object[2];
         row[0] = al.getId();
-        row[1] = "(-)";
+        row[1] = as.getId();
         modelTableAlumno_Asignatura.addRow(row);
-      } else {
-        for (Asignatura as : al.getAsignaturas()) {
-          Object[] row = new Object[2];
-          row[0] = al.getId();
-          row[1] = as.getId();
-          modelTableAlumno_Asignatura.addRow(row);
-        }
       }
     }
 
